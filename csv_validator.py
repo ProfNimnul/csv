@@ -5,8 +5,9 @@ from easygui import fileopenbox , msgbox
 
 import csv
 
-
+from os.path import dirname,join
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#path_to_save_protocol =""
 def get_csv_file ():
     fname = ''
     while len ( fname ) == 0:
@@ -22,7 +23,8 @@ def get_csv_file ():
 current_category = 0
 checked_categories = [ ]  # перелік категорій, які ми вже обробили
 
-nonstandard_categories = [ "І.ТОВАРИ" ,  # перелік всіх категорій, які повинні бути у звіті
+nonstandard_categories = [ # перелік всіх категорій, які повинні бути у звіті
+                           "І.ТОВАРИ" ,
                            "ІІ.РОБОТИ" ,
                            "ІІІ.ПОСЛУГИ" ,
                            "Усього за розділом І (ТОВАРИ)" ,
@@ -30,7 +32,7 @@ nonstandard_categories = [ "І.ТОВАРИ" ,  # перелік всіх кат
                            "Усього за розділом ІІІ (Послуги)" ,
                            "Разом (розділ І+розділ ІІ+розділ ІІІ)" ,
                            "КВЕД"
-                           ]
+                         ]
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,7 +40,8 @@ nonstandard_categories = [ "І.ТОВАРИ" ,  # перелік всіх кат
 def read_from_csv ( fname ):
     global current_category
     csv.register_dialect ( "edata" , delimiter=';' )  # Символ - розділювач токенів
-    prot = open ( "Протокол перевірки.txt" , "wt" )
+    path_to_save_protocol=join(dirname(fname),"Протокол перевірки.txt")
+    prot = open ( path_to_save_protocol, "wt" )
     msg = ''
     try:
         with open ( fname , 'rt' , encoding='Windows-1251' ) as csv_file:
