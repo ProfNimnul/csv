@@ -71,6 +71,8 @@ def read_from_csv ( fname ):
 
         prot.write ( val_vidsutni_rozdili ( ) )
         prot.close ( )
+        msgbox("Перевірку завершено, файл \" Протокол перевірки.txt \" збережено в теку " + dirname(fname),
+               title="Файл протоколу", ok_button="ОК" )
     except FileNotFoundError:
         msgbox ( "Файл " + fname + " не знайдено!" , ok_button="OK" )
 
